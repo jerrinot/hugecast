@@ -36,27 +36,18 @@ public class UnpooledDirectByteBuf extends AbstractReferenceCountedByteBuf {
     /**
      * Creates a new direct buffer.
      *
-     * @param initialCapacity the initial capacity of the underlying direct buffer
-     * @param maxCapacity     the maximum capacity of the underlying direct buffer
+     * @param capacity the capacity of the underlying direct buffer
      */
-    protected UnpooledDirectByteBuf(ByteBufAllocator alloc, int initialCapacity, int maxCapacity) {
-        super(maxCapacity);
+    protected UnpooledDirectByteBuf(ByteBufAllocator alloc, int capacity) {
         if (alloc == null) {
             throw new NullPointerException("alloc");
         }
-        if (initialCapacity < 0) {
-            throw new IllegalArgumentException("initialCapacity: " + initialCapacity);
-        }
-        if (maxCapacity < 0) {
-            throw new IllegalArgumentException("maxCapacity: " + maxCapacity);
-        }
-        if (initialCapacity > maxCapacity) {
-            throw new IllegalArgumentException(String.format(
-                    "initialCapacity(%d) > maxCapacity(%d)", initialCapacity, maxCapacity));
+        if (capacity < 0) {
+            throw new IllegalArgumentException("capacity: " + capacity);
         }
 
         this.alloc = alloc;
-        setByteBuffer(ByteBuffer.allocateDirect(initialCapacity));
+        setByteBuffer(ByteBuffer.allocateDirect(capacity));
     }
 
     private void setByteBuffer(ByteBuffer buffer) {

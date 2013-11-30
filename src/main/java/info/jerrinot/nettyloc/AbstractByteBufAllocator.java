@@ -20,7 +20,6 @@ package info.jerrinot.nettyloc;
  * Skeletal {@link ByteBufAllocator} implementation to extend.
  */
 public abstract class AbstractByteBufAllocator implements ByteBufAllocator {
-    private static final int DEFAULT_INITIAL_CAPACITY = 256;
 
     private final ByteBuf emptyBuf;
 
@@ -32,38 +31,24 @@ public abstract class AbstractByteBufAllocator implements ByteBufAllocator {
         emptyBuf = new EmptyByteBuf(this);
     }
 
-    @Override
-    public ByteBuf directBuffer() {
-        return directBuffer(DEFAULT_INITIAL_CAPACITY, Integer.MAX_VALUE);
-    }
 
     @Override
-    public ByteBuf directBuffer(int initialCapacity) {
-        return directBuffer(initialCapacity, Integer.MAX_VALUE);
-    }
-
-    @Override
-    public ByteBuf directBuffer(int initialCapacity, int maxCapacity) {
-        if (initialCapacity == 0 && maxCapacity == 0) {
+    public ByteBuf directBuffer(int capacity) {
+        if (capacity == 0) {
             return emptyBuf;
         }
-        validate(initialCapacity, maxCapacity);
-        return newDirectBuffer(initialCapacity, maxCapacity);
+        validate(capacity);
+        return newDirectBuffer(capacity);
     }
 
-    private static void validate(int initialCapacity, int maxCapacity) {
-        if (initialCapacity < 0) {
-            throw new IllegalArgumentException("initialCapacity: " + initialCapacity + " (expectd: 0+)");
-        }
-        if (initialCapacity > maxCapacity) {
-            throw new IllegalArgumentException(String.format(
-                    "initialCapacity: %d (expected: not greater than maxCapacity(%d)",
-                    initialCapacity, maxCapacity));
+    private static void validate(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("capacity: " + capacity + " (expectd: 0+)");
         }
     }
 
     /**
-     * Create a direct {@link ByteBuf} with the given initialCapacity and maxCapacity.
+     * Create a direct {@link ByteBuf} with the given capacity.
      */
-    protected abstract ByteBuf newDirectBuffer(int initialCapacity, int maxCapacity);
+    protected abstract ByteBuf newDirectBuffer(int capacity);
 }

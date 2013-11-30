@@ -86,8 +86,8 @@ abstract class PoolArena<T> {
         return new PoolSubpage[size];
     }
 
-    PooledByteBuf<T> allocate(PoolThreadCache cache, int reqCapacity, int maxCapacity) {
-        PooledByteBuf<T> buf = newByteBuf(maxCapacity);
+    PooledByteBuf<T> allocate(PoolThreadCache cache, int reqCapacity) {
+        PooledByteBuf<T> buf = newByteBuf();
         allocate(cache, buf, reqCapacity);
         return buf;
     }
@@ -211,7 +211,7 @@ abstract class PoolArena<T> {
 
     protected abstract PoolChunk<T> newChunk(int pageSize, int maxOrder, int pageShifts, int chunkSize);
     protected abstract PoolChunk<T> newUnpooledChunk(int capacity);
-    protected abstract PooledByteBuf<T> newByteBuf(int maxCapacity);
+    protected abstract PooledByteBuf<T> newByteBuf();
     protected abstract void memoryCopy(T src, int srcOffset, T dst, int dstOffset, int length);
     protected abstract void destroyChunk(PoolChunk<T> chunk);
 
@@ -310,11 +310,11 @@ abstract class PoolArena<T> {
         }
 
         @Override
-        protected PooledByteBuf<ByteBuffer> newByteBuf(int maxCapacity) {
+        protected PooledByteBuf<ByteBuffer> newByteBuf() {
             if (HAS_UNSAFE) {
-                return PooledUnsafeDirectByteBuf.newInstance(maxCapacity);
+                return PooledUnsafeDirectByteBuf.newInstance();
             } else {
-                return PooledDirectByteBuf.newInstance(maxCapacity);
+                return PooledDirectByteBuf.newInstance();
             }
         }
 

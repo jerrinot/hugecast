@@ -33,14 +33,6 @@ public abstract class ByteBuf implements ReferenceCounted {
     public abstract int capacity();
 
     /**
-     * Returns the maximum allowed capacity of this buffer.  If a user attempts to increase the
-     * capacity of this buffer beyond the maximum capacity using {@link #capacity(int)} or
-     * {@link #ensureWritable(int)}, those methods will raise an
-     * {@link IllegalArgumentException}.
-     */
-    public abstract int maxCapacity();
-
-    /**
      * Returns the {@link ByteBufAllocator} which created this buffer.
      */
     public abstract ByteBufAllocator alloc();
@@ -139,8 +131,6 @@ public abstract class ByteBuf implements ReferenceCounted {
     /**
      * Transfers the specified source array's data to this buffer starting at
      * the specified absolute {@code index}.
-     * This method does not modify {@code readerIndex} or {@code writerIndex} of
-     * this buffer.
      *
      * @throws IndexOutOfBoundsException
      *         if the specified {@code index} is less than {@code 0},
@@ -155,8 +145,6 @@ public abstract class ByteBuf implements ReferenceCounted {
      * Transfers the specified source buffer's data to this buffer starting at
      * the specified absolute {@code index} until the source buffer's position
      * reaches its limit.
-     * This method does not modify {@code readerIndex} or {@code writerIndex} of
-     * this buffer.
      *
      * @throws IndexOutOfBoundsException
      *         if the specified {@code index} is less than {@code 0} or
@@ -168,8 +156,6 @@ public abstract class ByteBuf implements ReferenceCounted {
     /**
      * Transfers the content of the specified source stream to this buffer
      * starting at the specified absolute {@code index}.
-     * This method does not modify {@code readerIndex} or {@code writerIndex} of
-     * this buffer.
      *
      * @param length the number of bytes to transfer
      *
@@ -187,8 +173,6 @@ public abstract class ByteBuf implements ReferenceCounted {
     /**
      * Transfers the content of the specified source channel to this buffer
      * starting at the specified absolute {@code index}.
-     * This method does not modify {@code readerIndex} or {@code writerIndex} of
-     * this buffer.
      *
      * @param length the maximum number of bytes to transfer
      *
@@ -206,9 +190,7 @@ public abstract class ByteBuf implements ReferenceCounted {
 
 
     /**
-     * Transfers this buffer's data to the specified destination starting at
-     * the current {@code readerIndex} and increases the {@code readerIndex}
-     * by the number of the transferred bytes (= {@code dst.length}).
+     * Transfers this buffer's data to the specified destination.
      *
      * @throws IndexOutOfBoundsException
      *         if {@code dst.length} is greater than {@code this.readableBytes}
@@ -216,9 +198,7 @@ public abstract class ByteBuf implements ReferenceCounted {
     public abstract ByteBuf readBytes(byte[] dst);
 
     /**
-     * Transfers this buffer's data to the specified destination starting at
-     * the current {@code readerIndex} and increases the {@code readerIndex}
-     * by the number of the transferred bytes (= {@code length}).
+     * Transfers this buffer's data to the specified destination.
      *
      * @param dstIndex the first index of the destination
      * @param length   the number of bytes to transfer
@@ -232,8 +212,7 @@ public abstract class ByteBuf implements ReferenceCounted {
 
 
     /**
-     * Transfers this buffer's data to the specified stream starting at the
-     * current {@code readerIndex}.
+     * Transfers this buffer's data to the specified stream .
      *
      * @param length the number of bytes to transfer
      *
@@ -246,9 +225,7 @@ public abstract class ByteBuf implements ReferenceCounted {
 
 
     /**
-     * Transfers the specified source array's data to this buffer starting at
-     * the current {@code writerIndex} and increases the {@code writerIndex}
-     * by the number of the transferred bytes (= {@code src.length}).
+     * Transfers the specified source array's data to this buffer.
      *
      * @throws IndexOutOfBoundsException
      *         if {@code src.length} is greater than {@code this.writableBytes}
@@ -256,9 +233,7 @@ public abstract class ByteBuf implements ReferenceCounted {
     public abstract ByteBuf writeBytes(byte[] src);
 
     /**
-     * Transfers the specified source array's data to this buffer starting at
-     * the current {@code writerIndex} and increases the {@code writerIndex}
-     * by the number of the transferred bytes (= {@code length}).
+     * Transfers the specified source array's data to this buffer.
      *
      * @param srcIndex the first index of the source
      * @param length   the number of bytes to transfer
@@ -272,10 +247,7 @@ public abstract class ByteBuf implements ReferenceCounted {
     public abstract ByteBuf writeBytes(byte[] src, int srcIndex, int length);
 
     /**
-     * Transfers the specified source buffer's data to this buffer starting at
-     * the current {@code writerIndex} until the source buffer's position
-     * reaches its limit, and increases the {@code writerIndex} by the
-     * number of the transferred bytes.
+     * Transfers the specified source buffer's data to this buffer.
      *
      * @throws IndexOutOfBoundsException
      *         if {@code src.remaining()} is greater than
@@ -284,9 +256,7 @@ public abstract class ByteBuf implements ReferenceCounted {
     public abstract ByteBuf writeBytes(ByteBuffer src);
 
     /**
-     * Transfers the content of the specified stream to this buffer
-     * starting at the current {@code writerIndex} and increases the
-     * {@code writerIndex} by the number of the transferred bytes.
+     * Transfers the content of the specified stream to this buffer.
      *
      * @param length the number of bytes to transfer
      *

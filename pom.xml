@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>info.jerrinot</groupId>
-    <artifactId>nettyloc</artifactId>
+    <artifactId>hugecast</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

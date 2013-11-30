@@ -30,24 +30,6 @@ import java.nio.charset.Charset;
  */
 public abstract class AbstractByteBuf extends ByteBuf {
 
-    private int maxCapacity;
-
-    protected AbstractByteBuf(int maxCapacity) {
-        if (maxCapacity < 0) {
-            throw new IllegalArgumentException("maxCapacity: " + maxCapacity + " (expected: >= 0)");
-        }
-        this.maxCapacity = maxCapacity;
-    }
-
-    @Override
-    public int maxCapacity() {
-        return maxCapacity;
-    }
-
-    protected final void maxCapacity(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
-
     @Override
     public ByteBuf getBytes(int index, byte[] dst) {
         getBytes(index, dst, 0, dst.length);
@@ -127,10 +109,6 @@ public abstract class AbstractByteBuf extends ByteBuf {
         buf.append(getClass().getSimpleName());
         buf.append(", cap: ");
         buf.append(capacity());
-        if (maxCapacity != Integer.MAX_VALUE) {
-            buf.append('/');
-            buf.append(maxCapacity);
-        }
 
         ByteBuf unwrapped = unwrap();
         if (unwrapped != null) {

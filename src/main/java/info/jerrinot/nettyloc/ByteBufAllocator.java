@@ -21,20 +21,11 @@ package info.jerrinot.nettyloc;
  */
 public interface ByteBufAllocator {
 
-    /**
-     * Allocate a direct {@link ByteBuf}.
-     */
-    ByteBuf directBuffer();
 
     /**
-     * Allocate a direct {@link ByteBuf} with the given initial capacity.
+     * Allocate a direct {@link ByteBuf} with the given capacity.
      */
-    ByteBuf directBuffer(int initialCapacity);
+    ByteBuf directBuffer(int capacity);
 
-    /**
-     * Allocate a direct {@link ByteBuf} with the given initial capacity and the given
-     * maximal capacity.
-     */
-    ByteBuf directBuffer(int initialCapacity, int maxCapacity);
 
 }

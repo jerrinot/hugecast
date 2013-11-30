@@ -15,7 +15,7 @@ public class NettyStorage implements Storage<DataRef> {
     @Override
     public DataRef put(int hash, Data data) {
         byte[] buffer = data.getBuffer();
-        ByteBuf byteBuf = allocator.directBuffer(buffer.length, buffer.length);
+        ByteBuf byteBuf = allocator.directBuffer(buffer.length);
         byteBuf.writeBytes(buffer);
         ClassDefinition classDefinition = data.getClassDefinition();
 
@@ -27,8 +27,8 @@ public class NettyStorage implements Storage<DataRef> {
         NettyDataRef nettyDataRef = (NettyDataRef) ref;
         ByteBuf byteBuf = null;
         try {
-            byteBuf.retain();
             byteBuf = nettyDataRef.getByteBuf();
+            byteBuf.retain();
 
             int type = nettyDataRef.getType();
             byte[] buffer = new byte[byteBuf.capacity()];

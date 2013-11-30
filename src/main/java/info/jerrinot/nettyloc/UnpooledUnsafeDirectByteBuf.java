@@ -37,58 +37,18 @@ public class UnpooledUnsafeDirectByteBuf extends AbstractReferenceCountedByteBuf
     /**
      * Creates a new direct buffer.
      *
-     * @param initialCapacity the initial capacity of the underlying direct buffer
-     * @param maxCapacity     the maximum capacity of the underlying direct buffer
+     * @param capacity the capacity of the underlying direct buffer
      */
-    protected UnpooledUnsafeDirectByteBuf(ByteBufAllocator alloc, int initialCapacity, int maxCapacity) {
-        super(maxCapacity);
+    protected UnpooledUnsafeDirectByteBuf(ByteBufAllocator alloc, int capacity) {
         if (alloc == null) {
             throw new NullPointerException("alloc");
         }
-        if (initialCapacity < 0) {
-            throw new IllegalArgumentException("initialCapacity: " + initialCapacity);
-        }
-        if (maxCapacity < 0) {
-            throw new IllegalArgumentException("maxCapacity: " + maxCapacity);
-        }
-        if (initialCapacity > maxCapacity) {
-            throw new IllegalArgumentException(String.format(
-                    "initialCapacity(%d) > maxCapacity(%d)", initialCapacity, maxCapacity));
+        if (capacity < 0) {
+            throw new IllegalArgumentException("capacity: " + capacity);
         }
 
         this.alloc = alloc;
-        setByteBuffer(ByteBuffer.allocateDirect(initialCapacity));
-    }
-
-    /**
-     * Creates a new direct buffer by wrapping the specified initial buffer.
-     *
-     * @param maxCapacity the maximum capacity of the underlying direct buffer
-     */
-    protected UnpooledUnsafeDirectByteBuf(ByteBufAllocator alloc, ByteBuffer initialBuffer, int maxCapacity) {
-        super(maxCapacity);
-        if (alloc == null) {
-            throw new NullPointerException("alloc");
-        }
-        if (initialBuffer == null) {
-            throw new NullPointerException("initialBuffer");
-        }
-        if (!initialBuffer.isDirect()) {
-            throw new IllegalArgumentException("initialBuffer is not a direct buffer.");
-        }
-        if (initialBuffer.isReadOnly()) {
-            throw new IllegalArgumentException("initialBuffer is a read-only buffer.");
-        }
-
-        int initialCapacity = initialBuffer.remaining();
-        if (initialCapacity > maxCapacity) {
-            throw new IllegalArgumentException(String.format(
-                    "initialCapacity(%d) > maxCapacity(%d)", initialCapacity, maxCapacity));
-        }
-
-        this.alloc = alloc;
-        doNotFree = true;
-        setByteBuffer(initialBuffer.slice().order(ByteOrder.BIG_ENDIAN));
+        setByteBuffer(ByteBuffer.allocateDirect(capacity));
     }
 
     private void setByteBuffer(ByteBuffer buffer) {

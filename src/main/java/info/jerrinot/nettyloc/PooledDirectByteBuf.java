@@ -33,10 +33,9 @@ final class PooledDirectByteBuf extends PooledByteBuf<ByteBuffer> {
         }
     };
 
-    static PooledDirectByteBuf newInstance(int maxCapacity) {
+    static PooledDirectByteBuf newInstance() {
         PooledDirectByteBuf buf = RECYCLER.get();
         buf.setRefCnt(1);
-        buf.maxCapacity(maxCapacity);
         return buf;
     }
 

@@ -45,8 +45,7 @@ public abstract class AbstractReferenceCountedByteBuf extends AbstractByteBuf {
     @SuppressWarnings("FieldMayBeFinal")
     private volatile int refCnt = 1;
 
-    protected AbstractReferenceCountedByteBuf(int maxCapacity) {
-        super(maxCapacity);
+    protected AbstractReferenceCountedByteBuf() {
     }
 
     @Override

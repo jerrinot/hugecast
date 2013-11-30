@@ -80,11 +80,6 @@ public final class EmptyByteBuf extends ByteBuf {
     }
 
     @Override
-    public int maxCapacity() {
-        return 0;
-    }
-
-    @Override
     public ByteBuf getBytes(int index, byte[] dst) {
         return checkIndex(index, dst.length);
     }

@@ -152,16 +152,16 @@ public class PooledByteBufAllocator extends AbstractByteBufAllocator {
     }
 
     @Override
-    protected ByteBuf newDirectBuffer(int initialCapacity, int maxCapacity) {
+    protected ByteBuf newDirectBuffer(int capacity) {
         PoolThreadCache cache = threadCache.get();
         PoolArena<ByteBuffer> directArena = cache.directArena;
         if (directArena != null) {
-            return directArena.allocate(cache, initialCapacity, maxCapacity);
+            return directArena.allocate(cache, capacity);
         } else {
             if (PlatformDependent.hasUnsafe()) {
-                return new UnpooledUnsafeDirectByteBuf(this, initialCapacity, maxCapacity);
+                return new UnpooledUnsafeDirectByteBuf(this, capacity);
             } else {
-                return new UnpooledDirectByteBuf(this, initialCapacity, maxCapacity);
+                return new UnpooledDirectByteBuf(this, capacity);
             }
         }
     }
