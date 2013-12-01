@@ -8,7 +8,7 @@ It has been (poorly) tested against Hazelcast 3.1.2
 ### Usage
 - Build it
 - Put the resulting JAR on the classpath
-- Now you can configure your maps to use [Off-Heap In-Memory Format](http://www.hazelcast.com/docs/3.1/manual/multi_html/ch02.html#MapInMemoryFormat)!
+- Now you can [configure](http://www.hazelcast.com/docs/3.1/manual/multi_html/ch04.html) your maps to use [Off-Heap In-Memory Format](http://www.hazelcast.com/docs/3.1/manual/multi_html/ch02.html#MapInMemoryFormat)!
 
 Use the -XX:MaxDirectMemorySize=\<n\>G JVM option to specify a maximum capacity of your storage.
 
