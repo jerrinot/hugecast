@@ -32,7 +32,7 @@ final class PooledUnsafeDirectByteBuf extends PooledByteBuf<ByteBuffer> {
     private static final Recycler<PooledUnsafeDirectByteBuf> RECYCLER = new Recycler<PooledUnsafeDirectByteBuf>() {
         @Override
         protected PooledUnsafeDirectByteBuf newObject(Handle handle) {
-            return new PooledUnsafeDirectByteBuf(handle, 0);
+            return new PooledUnsafeDirectByteBuf(handle);
         }
     };
 
@@ -44,8 +44,8 @@ final class PooledUnsafeDirectByteBuf extends PooledByteBuf<ByteBuffer> {
 
     private long memoryAddress;
 
-    private PooledUnsafeDirectByteBuf(Recycler.Handle recyclerHandle, int maxCapacity) {
-        super(recyclerHandle, maxCapacity);
+    private PooledUnsafeDirectByteBuf(Recycler.Handle recyclerHandle) {
+        super(recyclerHandle);
     }
 
     @Override

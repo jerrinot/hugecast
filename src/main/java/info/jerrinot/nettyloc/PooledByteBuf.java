@@ -32,7 +32,7 @@ abstract class PooledByteBuf<T> extends AbstractReferenceCountedByteBuf {
 
     private ByteBuffer tmpNioBuf;
 
-    protected PooledByteBuf(Recycler.Handle recyclerHandle, int maxCapacity) {
+    protected PooledByteBuf(Recycler.Handle recyclerHandle) {
         this.recyclerHandle = recyclerHandle;
     }
 

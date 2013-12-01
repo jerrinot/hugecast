@@ -29,7 +29,7 @@ final class PooledDirectByteBuf extends PooledByteBuf<ByteBuffer> {
     private static final Recycler<PooledDirectByteBuf> RECYCLER = new Recycler<PooledDirectByteBuf>() {
         @Override
         protected PooledDirectByteBuf newObject(Handle handle) {
-            return new PooledDirectByteBuf(handle, 0);
+            return new PooledDirectByteBuf(handle);
         }
     };
 
@@ -39,8 +39,8 @@ final class PooledDirectByteBuf extends PooledByteBuf<ByteBuffer> {
         return buf;
     }
 
-    private PooledDirectByteBuf(Recycler.Handle recyclerHandle, int maxCapacity) {
-        super(recyclerHandle, maxCapacity);
+    private PooledDirectByteBuf(Recycler.Handle recyclerHandle) {
+        super(recyclerHandle);
     }
 
     @Override
