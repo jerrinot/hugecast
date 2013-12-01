@@ -77,7 +77,6 @@ public abstract class AbstractByteBuf extends ByteBuf {
 
     @Override
     public ByteBuf writeBytes(ByteBuffer src) {
-        int length = src.remaining();
         setBytes(0, src);
         return this;
     }

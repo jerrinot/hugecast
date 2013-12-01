@@ -31,24 +31,9 @@ import java.nio.charset.Charset;
 public final class EmptyByteBuf extends ByteBuf {
 
     private static final ByteBuffer EMPTY_BYTE_BUFFER = ByteBuffer.allocateDirect(0);
-    private static final long EMPTY_BYTE_BUFFER_ADDRESS;
-
-    static {
-        long emptyByteBufferAddress = 0;
-        try {
-            if (PlatformDependent.hasUnsafe()) {
-                emptyByteBufferAddress = PlatformDependent.directBufferAddress(EMPTY_BYTE_BUFFER);
-            }
-        } catch (Throwable t) {
-            // Ignore
-        }
-        EMPTY_BYTE_BUFFER_ADDRESS = emptyByteBufferAddress;
-    }
 
     private final ByteBufAllocator alloc;
-    private final ByteOrder order;
     private final String str;
-    private EmptyByteBuf swapped;
 
     public EmptyByteBuf(ByteBufAllocator alloc) {
         this(alloc, ByteOrder.BIG_ENDIAN);
@@ -60,7 +45,6 @@ public final class EmptyByteBuf extends ByteBuf {
         }
 
         this.alloc = alloc;
-        this.order = order;
         str = getClass().getSimpleName() + (order == ByteOrder.BIG_ENDIAN? "BE" : "LE");
     }
 
@@ -209,13 +193,6 @@ public final class EmptyByteBuf extends ByteBuf {
     @Override
     public boolean release() {
         return false;
-    }
-
-    private ByteBuf checkIndex(int index) {
-        if (index != 0) {
-            throw new IndexOutOfBoundsException();
-        }
-        return this;
     }
 
     private ByteBuf checkIndex(int index, int length) {
