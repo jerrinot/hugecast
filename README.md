@@ -10,7 +10,7 @@ It has been (poorly) tested against Hazelcast 3.1.2
 - Put the resulting JAR on the classpath
 - Now you can configure your maps to use Off-Heap In-Memory Format!
 
-Use the -XX:MaxDirectMemorySize=<n>G JVM option to specify a maximum capacity of your storage.
+Use the -XX:MaxDirectMemorySize=\<n\>G JVM option to specify a maximum capacity of your storage.
 
 ### Disclaimer
 I take no responsibility if it eats your data. It's a research project, if you want to use Off-Heap In-Memory Format in production, then I recommend you to use Hazelcast Enterprise Edition instead!
